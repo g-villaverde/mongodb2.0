@@ -1,14 +1,14 @@
 import { v4 } from "uuid";
 
 export class Producto {
-    constructor(id, timestamp, nombre, descripcion, codigo, foto, precio, stock) {
+    constructor(id, timestamp, name, description, code, photo, price, stock) {
         this.id = v4();
         this.timestamp = Date.now();
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.codigo = codigo;
-        this.foto = foto;
-        this.precio = precio;
+        this.name = name;
+        this.description = description;
+        this.code = code;
+        this.photo = photo;
+        this.price = price;
         this.stock = stock;
     }
 }

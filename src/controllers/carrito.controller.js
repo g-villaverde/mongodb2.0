@@ -1,31 +1,80 @@
 import { Carrito } from "../models/Carrito.js";
-import fs from 'fs';
+import cart from '../models/cart.schema.js'
+import mongoose from 'mongoose';
+
+main().catch(err => console.log(err));
+
+async function main() {
+    await mongoose.connect('mongodb://localhost:27017/ecommerce_coder');
+    await cart.deleteMany({});
+    return console.log('Schemas inicializados');
+}
 
 const carrito = new Carrito();
 
-export const getCarrito = (req, res) => {
-    return res.status(200).json(carrito);
+
+// Get Carrito
+export const getCarrito = async(req, res) => {
+    try {
+        let getCarrito = await cart.find('cart');
+        return res.send(getCarrito);
+        
+    } catch (error) {
+        return error
+    }
 }
 
-export const getProductoCarrito = (req, res) => {
-    return res.json(carrito.productos);
+
+// Get product by id carrito
+export const getProductoCarrito = async (req, res, id) => {
+    
+    try {
+        let getCarrito = await cart.findById('cart', id);
+        return res.send(getCarrito);
+        
+    } catch (error) {
+        return error
+    }
+
+
 };
 
-export const addCarrito = (req, res) => {
-    const {body} = req;
+export const addCarrito = async (req, res) => {
+    
+    
 
-    carrito.productos.push(body);
-    let data = JSON.stringify(body);
-    fs.writeFile('./src/carrito.json', data, ()=> console.log("producto agregado al carrito"));
-    console.log(body);
-    return res.status(201).json(body);
+    try {
+
+        const {body} = req;
+        carrito.productos.push(body);
+        const newCarrito = carrito(body);
+
+        const saveCarritoModel = new module.newCarritos(newCarrito);
+        let saveCarrito = await saveCarritoModel.save();
+
+        return res.send(saveCarrito);
+
+    } catch (error) {
+        return error
+    }
+   
 
 }   
 
-export const deleteCarrito = (req, res) => {
+export const deleteCarrito = async (req, res) => {
     const {id} = req.params;
     const index = carrito.productos.findIndex((producto) => producto.id == id);
     const deleted = carrito.productos.splice(index, 1);
+    try {
+        
+        let removed = await cart.findByIdAndDelete(index);
+        return res.send(removed);
 
-    return res.status(200).json(deleted);
+
+
+    } catch (error) {
+        return error
+    }
+
+    ;
 }

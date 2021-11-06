@@ -2,7 +2,6 @@
   "type": "module",
   "name": "primera-entrega",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,7 +11,17 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "nodemon": "^2.0.13",
+    "mongoose": "^6.0.12",
+    "nodemon": "^2.0.14",
     "uuid": "^8.3.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/g-villaverde/Primera-Entrega-Trabajo-Final.git"
+  },
+  "bugs": {
+    "url": "https://github.com/g-villaverde/Primera-Entrega-Trabajo-Final/issues"
+  },
+  "homepage": "https://github.com/g-villaverde/Primera-Entrega-Trabajo-Final#readme",
+  "description": ""
 }
